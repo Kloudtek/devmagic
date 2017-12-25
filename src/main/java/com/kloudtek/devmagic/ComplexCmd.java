@@ -4,7 +4,7 @@ import picocli.CommandLine;
 
 import java.util.List;
 
-public abstract class ComplexCommand implements Runnable {
+public abstract class ComplexCmd implements Runnable {
     protected CommandLine cmd;
 
     public String getCmdName() {
@@ -13,15 +13,18 @@ public abstract class ComplexCommand implements Runnable {
 
     public abstract List<Object> getSubcommands();
 
-    public void init(CommandLine cmd) {
+    public void init(DevMagicCli cli, CommandLine cmd) {
         this.cmd = cmd;
         for (Object subCmd : getSubcommands()) {
-            if (subCmd instanceof ComplexCommand) {
+            if (subCmd instanceof ComplexCmd) {
                 CommandLine cmdLine = new CommandLine(subCmd);
-                cmd.addSubcommand(((ComplexCommand) subCmd).getCmdName(), cmdLine);
-                ((ComplexCommand) subCmd).init(cmdLine);
+                cmd.addSubcommand(((ComplexCmd) subCmd).getCmdName(), cmdLine);
+                ((ComplexCmd) subCmd).init(cli, cmdLine);
             } else {
                 cmd.addSubcommand(getCmdName(subCmd.getClass()), subCmd);
+                if (subCmd instanceof Cmd) {
+                    ((Cmd) subCmd).init(cli);
+                }
             }
         }
     }

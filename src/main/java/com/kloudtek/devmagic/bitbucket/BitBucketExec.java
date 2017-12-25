@@ -1,26 +1,32 @@
 package com.kloudtek.devmagic.bitbucket;
 
+import com.kloudtek.util.UserDisplayableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Parameters;
 
-import java.util.concurrent.Callable;
+import java.io.File;
 
 @Command(name = "exec", description = "Checkout multiple repositories, execute command and commit/push modifications")
-public class BitBucketExec implements Callable<Object> {
+public class BitBucketExec extends BitBucketList {
     private static final Logger logger = LoggerFactory.getLogger(BitBucketExec.class);
-    @Parameters(description = "Command to execute (directory of clone repository will be provided as first argument)")
-    private String command;
-    private BitbucketModule bitbucketModule;
+    @Parameters(description = "File to execute")
+    private File exec;
 
     public BitBucketExec(BitbucketModule bitbucketModule) {
-        this.bitbucketModule = bitbucketModule;
+        super(bitbucketModule);
     }
 
     @Override
     public Object call() throws Exception {
+        if (exec.exists()) {
+            throw new UserDisplayableException("Exec file not found: " + exec);
+        }
+        for (String name : bitbucketModule.listProjectsNames(team, includes, excludes)) {
+//            ProcessExecutionResult res = ProcessUtils.exec(exec, name);
+//            logger.info(res.getStdout().trim());
+        }
         return null;
     }
 }
