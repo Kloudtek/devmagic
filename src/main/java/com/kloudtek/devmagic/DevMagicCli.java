@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
 
-public class DevMagicCli extends ComplexCommand implements Runnable {
+public class DevMagicCli extends ComplexCommand {
     @Option(names = {"-q", "--quiet"}, description = "Suppress informative message")
     private boolean quiet;
     @Option(names = {"-v", "--verbose"}, description = "Verbose logging (overrides -q)")
@@ -27,11 +27,6 @@ public class DevMagicCli extends ComplexCommand implements Runnable {
     public DevMagicCli() {
         cmd = new CommandLine(this);
         cmd.setCommandName("devmagic");
-    }
-
-    @Override
-    public void run() {
-        cmd.usage(System.out);
     }
 
     @Override
