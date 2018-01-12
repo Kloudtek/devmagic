@@ -14,19 +14,15 @@ public class BitBucketExec extends BitBucketList {
     @Parameters(description = "File to execute")
     private File exec;
 
-    public BitBucketExec(BitbucketModule bitbucketModule) {
-        super(bitbucketModule);
-    }
-
     @Override
-    public Object call() throws Exception {
+    public void execute() {
+        System.out.println("XXXX ");
         if (exec.exists()) {
             throw new UserDisplayableException("Exec file not found: " + exec);
         }
-        for (String name : bitbucketModule.listProjectsNames(team, includes, excludes)) {
+//        for (String name : bitbucketModule.listProjectsNames(team, includes, excludes)) {
 //            ProcessExecutionResult res = ProcessUtils.exec(exec, name);
 //            logger.info(res.getStdout().trim());
-        }
-        return null;
+//        }
     }
 }

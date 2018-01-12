@@ -1,7 +1,8 @@
 package com.kloudtek.devmagic.bitbucket;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.auto.service.AutoService;
-import com.kloudtek.devmagic.ComplexCmd;
+import com.kloudtek.devmagic.CommandModule;
 import com.kloudtek.devmagic.DevMagicCli;
 import com.kloudtek.devmagic.Module;
 import com.kloudtek.devmagic.util.FilterUtils;
@@ -17,27 +18,19 @@ import picocli.CommandLine.Option;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = "bb", description = "BitBucket tools")
+@Command(name = "bb", description = "BitBucket tools", subcommands = {BitBucketList.class, BitBucketExec.class})
 @AutoService(Module.class)
-public class BitbucketModule extends ComplexCmd implements Module {
+public class BitbucketModule extends CommandModule {
     private static final Logger logger = LoggerFactory.getLogger(BitbucketModule.class);
     @Option(names = {"-u", "--user"}, description = "© Bitbucket username")
+    @JsonProperty
     private String username;
     @Option(names = {"-p", "--password"}, description = "© Bitbucket password")
+    @JsonProperty
     private String password;
-    @Override
-    public String getCmdName() {
-        return "bb";
-    }
-
-    @Override
-    public List<Object> getSubcommands() {
-        return Arrays.asList(new BitBucketExec(this), new BitBucketList(this));
-    }
 
     public Executor getHttpExecutor() {
         HttpHost host = new HttpHost("api.bitbucket.org", 443, "https");
