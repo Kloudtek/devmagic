@@ -3,9 +3,9 @@ package com.kloudtek.devmagic.bitbucket;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.auto.service.AutoService;
 import com.kloudtek.devmagic.CommandModule;
-import com.kloudtek.devmagic.DevMagicCli;
 import com.kloudtek.devmagic.Module;
-import com.kloudtek.devmagic.util.FilterUtils;
+import com.kloudtek.ktcli.CliHelper;
+import com.kloudtek.util.FilterUtils;
 import com.kloudtek.util.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.client.fluent.Executor;
@@ -48,12 +48,12 @@ public class BitbucketModule extends CommandModule {
             logger.debug("Retrieving project pages from bitbucket: " + url);
             Response response = getHttpExecutor().execute(Request.Get(url)
                     .addHeader("Content-Type", "application/json"));
-            Map<String, Object> resp = DevMagicCli.readJsonObject(response.returnContent().asString());
+            Map<String, Object> resp = CliHelper.readJsonObject(response.returnContent().asString());
             url = (String) resp.get("next");
             for (Map<String, Object> proj : (List<Map<String, Object>>) resp.get("values")) {
                 names.add((String) proj.get("name"));
             }
         }
-        return FilterUtils.filter(names, includes, excludes);
+        return FilterUtils.regexFilter(names, includes, excludes);
     }
 }

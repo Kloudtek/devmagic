@@ -1,17 +1,15 @@
 package com.kloudtek.devmagic.bitbucket;
 
+import picocli.CommandLine;
 import com.kloudtek.util.UserDisplayableException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import picocli.CommandLine.Command;
-import picocli.CommandLine.Parameters;
-
 import java.io.File;
 
-@Command(name = "exec", description = "Checkout multiple repositories, execute command and commit/push modifications")
+@CommandLine.Command(name = "exec", description = "Checkout multiple repositories, initAndRun command and commit/push modifications")
 public class BitBucketExec extends BitBucketList {
     private static final Logger logger = LoggerFactory.getLogger(BitBucketExec.class);
-    @Parameters(description = "File to execute")
+    @CommandLine.Parameters(description = "File to initAndRun")
     private File exec;
 
     @Override

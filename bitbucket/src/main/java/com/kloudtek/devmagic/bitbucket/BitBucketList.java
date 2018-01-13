@@ -1,6 +1,6 @@
 package com.kloudtek.devmagic.bitbucket;
 
-import com.kloudtek.devmagic.AbstractCmd;
+import com.kloudtek.ktcli.CliCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import picocli.CommandLine.Command;
@@ -9,7 +9,7 @@ import picocli.CommandLine.Option;
 import java.util.List;
 
 @Command(name = "ls", description = "list available repositories")
-public class BitBucketList extends AbstractCmd<BitbucketModule> {
+public class BitBucketList extends CliCommand<BitbucketModule> {
     private static final Logger logger = LoggerFactory.getLogger(BitBucketList.class);
     @Option(names = {"-t", "--team"}, description = "BitBucket team")
     protected String team;
@@ -17,8 +17,6 @@ public class BitBucketList extends AbstractCmd<BitbucketModule> {
     protected List<String> includes;
     @Option(names = {"-e", "--excludes"}, description = "Exclude project names that match this regex value")
     protected List<String> excludes;
-
-
 
     @Override
     public void execute() throws Exception {
