@@ -2,8 +2,7 @@ package com.kloudtek.devmagic.bitbucket;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.auto.service.AutoService;
-import com.kloudtek.devmagic.CommandModule;
-import com.kloudtek.devmagic.Module;
+import com.kloudtek.devmagic.DevMagicPluginCommand;
 import com.kloudtek.ktcli.CliHelper;
 import com.kloudtek.util.FilterUtils;
 import com.kloudtek.util.StringUtils;
@@ -22,8 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 @Command(name = "bb", description = "BitBucket tools", subcommands = {BitBucketList.class, BitBucketExec.class})
-@AutoService(Module.class)
-public class BitbucketModule extends CommandModule {
+@AutoService(DevMagicPluginCommand.class)
+public class BitbucketModule extends DevMagicPluginCommand {
     private static final Logger logger = LoggerFactory.getLogger(BitbucketModule.class);
     @Option(names = {"-u", "--user"}, description = "© Bitbucket username")
     @JsonProperty

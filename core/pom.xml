@@ -13,6 +13,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>fluent-hc</artifactId>
+            <version>4.5.4</version>
+        </dependency>
+        <dependency>
             <groupId>com.kloudtek.ktutils</groupId>
             <artifactId>ktutils-core</artifactId>
             <version>1.2.17</version>
@@ -20,7 +30,7 @@
         <dependency>
             <groupId>com.kloudtek.ktcli</groupId>
             <artifactId>ktcli</artifactId>
-            <version>0.9.1</version>
+            <version>0.9.2</version>
         </dependency>
     </dependencies>
 </project>
